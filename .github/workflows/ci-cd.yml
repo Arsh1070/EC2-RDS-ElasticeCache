@@ -68,13 +68,13 @@ jobs:
 
             echo "Container Status"
 
-            docker compose -f docker-compose.prod.yml ps
+            docker-compose -f docker-compose.prod.yml ps
 
             echo "Waiting for health checks..."
 
             sleep 10
 
-            docker compose -f docker-compose.prod.yml ps
+            docker-compose -f docker-compose.prod.yml ps
 
             echo "Cleanup old images..."
 
