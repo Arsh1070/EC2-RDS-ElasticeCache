@@ -54,9 +54,7 @@ jobs:
 
             cd /home/ec2-user/app-2
 
-            echo "Creating .env file..."
-
-            cat > .env <<EOF 
+            cat > .env <<EOF
             RDS_HOST=${{ secrets.RDS_HOST }}
             RDS_PORT=${{ secrets.RDS_PORT }}
             RDS_USER=${{ secrets.RDS_USER }}
