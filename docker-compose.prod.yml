@@ -42,6 +42,9 @@ services:
 
     container_name: app-1
 
+    env_file:
+      - .env
+
     environment:
       <<: *app-env
       APP_NAME: app-1
@@ -63,6 +66,9 @@ services:
     image: arshdocker1070/backend-2:latest
 
     container_name: app-2
+
+    env_file:
+      - .env
 
     environment:
       <<: *app-env

@@ -54,19 +54,6 @@ jobs:
 
             cd /home/ec2-user/app-2
 
-            cat > .env <<EOF
-            RDS_HOST=${{ secrets.RDS_HOST }}
-            RDS_PORT=${{ secrets.RDS_PORT }}
-            RDS_USER=${{ secrets.RDS_USER }}
-            RDS_PASSWORD=${{ secrets.RDS_PASSWORD }}
-            RDS_DATABASE=${{ secrets.RDS_DATABASE }}
-            RDS_SSL=true
-            REDIS_HOST=${{ secrets.REDIS_HOST }}
-            REDIS_PORT=${{ secrets.REDIS_PORT }}
-            REDIS_TLS=${{ secrets.REDIS_TLS }}
-            EOF
-            chmod 600 .env
-
             echo "Pull latest images..."
 
             docker-compose -f docker-compose.prod.yml pull
