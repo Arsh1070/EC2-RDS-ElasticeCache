@@ -1,4 +1,4 @@
-require("dotenv").config(); // loads .env in local dev; ECS/EC2 uses real env vars
+// require("dotenv").config(); // loads .env in local dev; ECS/EC2 uses real env vars
 const express = require("express");
 const { bootstrapDatabase } = require("./db/bootstrap");
 const { getRedisClient } = require("./db/redis");
@@ -6,7 +6,7 @@ const { closeRedis } = require("./db/redis");
 const usersRouter = require("./routes/users");
 
 const app  = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
