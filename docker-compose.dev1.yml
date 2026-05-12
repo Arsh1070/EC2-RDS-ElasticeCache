@@ -1,0 +1,96 @@
+
+
+services:
+  # ── Nginx Reverse Proxy ───────────────────────────────────────────────
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    container_name: nginx
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - ./certs:/etc/nginx/certs:ro
+
+    depends_on:
+      app-1:
+        condition: service_healthy
+      app-2:
+        condition: service_healthy
+
+    restart: always
+
+  # ── App Replica 1 ─────────────────────────────────────────────────────
+  app-1:
+    build:
+      context: ./backend
+    container_name: app-1
+
+    environment:
+      APP_NAME: app-1
+      NODE_ENV: development
+      PORT: 3000
+
+      # ── AWS RDS ───────────────────────────────────────────────────────
+      RDS_HOST: ${RDS_HOST}
+      RDS_PORT: ${RDS_PORT:-3306}
+      RDS_USER: ${RDS_USER}
+      RDS_PASSWORD: ${RDS_PASSWORD}
+      RDS_DATABASE: ${RDS_DATABASE:-testdb}
+      RDS_SSL: ${RDS_SSL:-true}
+
+      # ── AWS ElastiCache Redis ─────────────────────────────────────────
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT:-6379}
+      REDIS_TLS: ${REDIS_TLS:-false}
+
+    volumes:
+      - ./certs:/certs:ro
+
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+    restart: always
+
+  # ── App Replica 2 ─────────────────────────────────────────────────────
+  app-2:
+    build:
+      context: ./backend
+    container_name: app-2
+
+    environment:
+      APP_NAME: app-2
+      NODE_ENV: development
+      PORT: 3000
+
+      # ── AWS RDS ───────────────────────────────────────────────────────
+      RDS_HOST: ${RDS_HOST}
+      RDS_PORT: ${RDS_PORT:-3306}
+      RDS_USER: ${RDS_USER}
+      RDS_PASSWORD: ${RDS_PASSWORD}
+      RDS_DATABASE: ${RDS_DATABASE:-testdb}
+      RDS_SSL: ${RDS_SSL:-true}
+
+      # ── AWS ElastiCache Redis ─────────────────────────────────────────
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT:-6379}
+      REDIS_TLS: ${REDIS_TLS:-false}
+
+    volumes:
+      - ./certs:/certs:ro
+
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+    restart: always

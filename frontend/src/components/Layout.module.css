@@ -1,0 +1,12 @@
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main {
+    margin-left: 220px;
+    flex: 1;
+    padding: 2.5rem;
+    min-height: 100vh;
+    max-width: 1000px;
+}

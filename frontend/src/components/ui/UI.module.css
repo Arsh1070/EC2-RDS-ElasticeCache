@@ -1,0 +1,405 @@
+/* ── Button ─────────────────────────────────────── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    font-family: var(--sans);
+    font-weight: 700;
+    transition: background 0.12s, color 0.12s, border-color 0.12s, transform 0.1s;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.sizeMd {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.875rem;
+}
+
+.sizeSm {
+    padding: 0.38rem 0.7rem;
+    font-size: 0.8rem;
+}
+
+.sizeLg {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+}
+
+.primary {
+    background: var(--accent);
+    color: #fff;
+}
+
+.primary:hover:not(:disabled) {
+    background: #6c5bef;
+}
+
+.ghost {
+    background: var(--surface2);
+    color: var(--muted);
+    border-color: var(--border);
+}
+
+.ghost:hover:not(:disabled) {
+    color: var(--text);
+    border-color: var(--border2);
+}
+
+.danger {
+    background: transparent;
+    color: var(--red);
+}
+
+.danger:hover:not(:disabled) {
+    background: var(--red-dim);
+    border-color: var(--red-border);
+}
+
+.successBtn {
+    background: var(--green-dim);
+    color: var(--green);
+    border-color: var(--green-border);
+}
+
+.successBtn:hover:not(:disabled) {
+    background: #112b1e;
+}
+
+/* ── Input ──────────────────────────────────────── */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.input {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 0.9rem;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.12s;
+    width: 100%;
+}
+
+.input:focus {
+    border-color: var(--accent);
+}
+
+.input::placeholder {
+    color: var(--dim);
+}
+
+/* ── Card ───────────────────────────────────────── */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+}
+
+.cardTitle {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* ── StatCard ───────────────────────────────────── */
+.statCard {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+}
+
+.statLabel {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.statValue {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-top: 0.3rem;
+    color: var(--text);
+}
+
+.statValueAccent {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-top: 0.3rem;
+    color: var(--accent2);
+}
+
+.statValueGreen {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-top: 0.3rem;
+    color: var(--green);
+}
+
+.statValueAmber {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-top: 0.3rem;
+    color: var(--amber);
+}
+
+/* ── Badge ──────────────────────────────────────── */
+.badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    padding: 0.18rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.badgeDefault {
+    background: var(--surface3);
+    color: var(--muted);
+}
+
+.badgeAccent {
+    background: var(--accent-dim);
+    color: var(--accent2);
+}
+
+.badgeGreen {
+    background: var(--green-dim);
+    color: var(--green);
+}
+
+.badgeAmber {
+    background: var(--amber-dim);
+    color: var(--amber);
+}
+
+/* ── Method Badge ───────────────────────────────── */
+.methodBadge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+}
+
+.methodGET {
+    background: rgba(52, 211, 153, 0.12);
+    color: var(--green);
+}
+
+.methodPOST {
+    background: rgba(124, 107, 255, 0.15);
+    color: var(--accent2);
+}
+
+.methodPUT {
+    background: rgba(251, 191, 36, 0.12);
+    color: var(--amber);
+}
+
+.methodDELETE {
+    background: rgba(248, 113, 113, 0.12);
+    color: var(--red);
+}
+
+/* ── Table ──────────────────────────────────────── */
+.tableWrap {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.table th {
+    text-align: left;
+    padding: 0.55rem 1rem;
+    font-size: 0.63rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    border-bottom: 1px solid var(--border);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table tbody tr:hover td {
+    background: var(--surface2);
+}
+
+.empty {
+    text-align: center;
+    padding: 3rem;
+    color: var(--dim);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+}
+
+/* ── Spinner ────────────────────────────────────── */
+.spinner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem 0;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+.spinnerDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: scale(0.7);
+    }
+}
+
+/* ── Modal ──────────────────────────────────────── */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    backdrop-filter: blur(2px);
+}
+
+.modal {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    width: 440px;
+    max-width: calc(100vw - 2rem);
+    animation: popIn 0.15s ease;
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modalTitle {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+}
+
+.modalActions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+}
+
+/* ── Page Header ────────────────────────────────── */
+.pageHeader {
+    margin-bottom: 2rem;
+}
+
+.pageTitle {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.pageSub {
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 0.3rem;
+    font-family: var(--mono);
+}
+
+/* ── Stats Row ──────────────────────────────────── */
+.statsRow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Form Grid ──────────────────────────────────── */
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}

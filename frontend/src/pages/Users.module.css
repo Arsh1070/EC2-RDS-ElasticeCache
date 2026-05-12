@@ -1,0 +1,29 @@
+.tdId {
+    font-family: var(--mono);
+    color: var(--dim);
+    font-size: 0.8rem;
+}
+
+.nameLink {
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.12s;
+}
+
+.nameLink:hover {
+    color: var(--accent2);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.tdEmail {
+    font-family: var(--mono);
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.rowActions {
+    display: flex;
+    gap: 0.3rem;
+}

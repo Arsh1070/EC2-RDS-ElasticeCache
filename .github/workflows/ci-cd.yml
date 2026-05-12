@@ -1,0 +1,98 @@
+name: Production CI/CD
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  # ──────────────────────────────────────
+  # Build & Push Docker Images
+  # ──────────────────────────────────────
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # ── Docker Login ──────────────────
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # ── Build Backend ─────────────────
+      - name: Build Backend Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/backend-2:latest ./backend
+          docker push ${{ secrets.DOCKER_USERNAME }}/backend-2:latest
+
+      # ── Build Nginx ───────────────────
+      - name: Build Nginx Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx-2:latest -f nginx/Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/nginx-2:latest
+
+    # ──────────────────────────────────────
+    # Deploy To EC2
+    # ──────────────────────────────────────
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+
+          script: |
+            set -e
+
+            cd /home/ec2-user/app-2
+
+            echo "Creating .env file..."
+
+            cat > .env <<EOF 
+            RDS_HOST=${{ secrets.RDS_HOST }}
+            RDS_PORT=${{ secrets.RDS_PORT }}
+            RDS_USER=${{ secrets.RDS_USER }}
+            RDS_PASSWORD=${{ secrets.RDS_PASSWORD }}
+            RDS_DATABASE=${{ secrets.RDS_DATABASE }}
+            RDS_SSL=true
+            REDIS_HOST=${{ secrets.REDIS_HOST }}
+            REDIS_PORT=${{ secrets.REDIS_PORT }}
+            REDIS_TLS=${{ secrets.REDIS_TLS }}
+            EOF
+            chmod 600 .env
+
+            echo "Pull latest images..."
+
+            docker-compose -f docker-compose.prod.yml pull
+
+            echo "Recreate containers..."
+
+            docker-compose -f docker-compose.prod.yml up -d --remove-orphans
+
+            echo "Waiting for containers..."
+
+            sleep 15
+
+            echo "Container Status"
+
+            docker compose -f docker-compose.prod.yml ps
+
+            echo "Waiting for health checks..."
+
+            sleep 10
+
+            docker compose -f docker-compose.prod.yml ps
+
+            echo "Cleanup old images..."
+
+            docker image prune -af
+
+            echo "Deployment complete 🚀"
